@@ -184,12 +184,12 @@ public class BigNumber {
 			}
 			if (!doneFirst && doneZeros) {
 				int temp = 10 - digits.get(i);
-				digits.add(i, temp);
+				digits.set(i, temp);
 				// System.out.println("made it");
 				doneFirst = true;
 			} else if (doneFirst && doneZeros) {
 				int temp = 9 - digits.get(i);
-				digits.add(i, temp);
+				digits.set(i, temp);
 			}
 		}
 	}
