@@ -22,8 +22,8 @@ public class Driver
 		line = scanner.nextLine();
 		y = new BigNumber (line);
 
-//		System.out.println ("Sum: " + x.add(y));
-//		System.out.println ("Sum: " + y.add(x));
+		System.out.println ("Sum: " + x.add(y));
+		System.out.println ("Sum: " + y.add(x));
 //		System.out.println ("First - Second: " + x.subtract(y));
 //		System.out.println ("Second - First: " + y.subtract(x));
 //		System.out.println ("Product: " + x.multiply(y));
