@@ -57,13 +57,7 @@ public class BigNumber {
 	 */
 	public BigNumber add(BigNumber two) {
 
-//		while (this.digits.size() > two.digits.size()) {
-//			checkNumber(two);
-//		}
-//
-//		while (this.digits.size() < two.digits.size()) {
-//			checkNumber(this);
-//		}
+		checkForDigitAmount(this,two);				// Check to see if both BigNumbers being added have a difference in the number of digits
 
 		int carry = 0;
 		BigNumber sum = new BigNumber("");
@@ -204,6 +198,27 @@ public class BigNumber {
 			if (digits.get(0) == 0) {
 				digits.remove(0);
 			}
+		}
+	}
+	
+	/**
+	 * A helper method to inspect both BigNumbers side by side to check and see
+	 * if they are of equal digit length
+	 * 
+	 * @param bigNumber
+	 *            A bigNumber of a certain length and value
+	 * @param two
+	 *            A bigNumber of a certain length and value
+	 */
+	private void checkForDigitAmount(BigNumber bigNumber, BigNumber two) {
+		while (bigNumber.digits.size() < two.digits.size()) {
+			bigNumber.digits.add(0, 0);
+		} // If bigNumber is smaller than two, make bigNumber equal in length to
+			// two
+
+		while (two.digits.size() < bigNumber.digits.size()) {
+			two.digits.add(0, 0); // If two is smaller than bigNumber, make two
+									// equal in length to bigNumber
 		}
 	}
 
