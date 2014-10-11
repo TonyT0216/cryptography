@@ -95,10 +95,6 @@ public class BigNumber {
 			sb.append(digit);
 		}
 		sb.reverse();
-		if(sb.length() > digits.size() && sb.length() > two.digits.size())
-		{
-			sb.deleteCharAt(0);
-		}
 		String s = sb.toString();
 		BigNumber sum = new BigNumber(s);
 		// for (int i = s.length() - 1; i >= 0; i--) {
@@ -119,7 +115,19 @@ public class BigNumber {
 	public BigNumber subtract(BigNumber two) {
 		BigNumber tensC = new BigNumber(two);
 		tensC.negate();
-		return this.add(tensC);
+		tensC = this.add(tensC);
+//		return this.add(tensC);
+		
+		for(int i = tensC.size(); tensC.size() > digits.size(); i--)
+		{
+			tensC.removeHighestOrder();
+		}
+		return tensC;
+	}
+
+	private void removeHighestOrder() {
+		// TODO Auto-generated method stub
+		digits.remove(0);
 	}
 
 	// /**
@@ -136,6 +144,10 @@ public class BigNumber {
 	//
 	// }
 
+	private int size()
+	{
+		return digits.size();
+	}
 	/**
 	 * @Override toString method
 	 */
