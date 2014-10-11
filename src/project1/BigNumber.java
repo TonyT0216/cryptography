@@ -221,7 +221,11 @@ public class BigNumber {
 									// equal in length to bigNumber
 		}
 	}
-
+	/**
+	 * Multiplies a number with a number given as an argument
+	 * @param x the second number to multiply by
+	 * @returns the product of the two numbers
+	 */
 //	public BigNumber multiply(BigNumber x) {
 //		BigNumber product = new BigNumber(0);
 //		// TODO check this. might/probably is off by 1
@@ -237,6 +241,11 @@ public class BigNumber {
 //		return product;
 //	}
 //
+	/**
+	 * Divides a number by a number given as an argument
+	 * @param x the divisor
+	 * @returns the quotient
+	 */
 //	public BigNumber divide(BigNumber x) {
 //		BigNumber quotient = new BigNumber(0);
 //		BigNumber temp = digits;
@@ -248,7 +257,11 @@ public class BigNumber {
 //		// rest is remainder.
 //		return quotient;
 //	}
-//
+	/**
+	 * Mods a number by a number given as an argument
+	 * @param x the modulous
+	 * @returns the remainder after division
+	 */
 //	public BigNumber mod(BigNumber x) {
 //		BigNumber temp = digits;
 //		// TODO make sure compare to works this way
@@ -257,7 +270,11 @@ public class BigNumber {
 //		}
 //		return temp;
 //	}
-
+	/**
+	 * Creates a list of the prime factors of the given BigNumber
+	 * @param x given BigNumber
+	 * @returns the list of factors
+	 */
 //	public ArrayList<BigNumber> factor(BigNumber x) {
 //		//return values
 //		ArrayList<BigNumber> factors = new ArrayList<BigNumber>();
@@ -284,7 +301,7 @@ public class BigNumber {
 //		}
 //		return factors;
 //	}
-//	
+//		
 //	private BigNumber getNextPrime(BigNumber x){
 //		if(checkPrime(x.add(new BigNumber("01")))==true){
 //			return x;
