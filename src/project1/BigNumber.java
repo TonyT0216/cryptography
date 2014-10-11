@@ -13,8 +13,8 @@ public class BigNumber {
 
 	public ArrayList<Integer> digits;
 
-	// private final BigNumber ZERO = new BigNumber("00");
-	// private final BigNumber ONE = new BigNumber("01");
+	private static final BigNumber ZERO = new BigNumber("0");
+	private static final BigNumber ONE = new BigNumber("1");
 
 	/**
 	 * Constructor of the BigNumber class
@@ -261,7 +261,6 @@ public class BigNumber {
 			two.digits.add(0, 0); // If two is smaller than bigNumber, make two
 									// equal in length to bigNumber
 		}
-
 	}
 
 	/**
@@ -272,8 +271,7 @@ public class BigNumber {
 	 * @returns the product of the two numbers
 	 */
 	public BigNumber multiply(BigNumber x) {
-		BigNumber product = new BigNumber("00");
-		// TODO check this. might/probably is off by 1
+		BigNumber product = new BigNumber(ZERO);
 		for (int i=digits.size()-1, j=0; i>=0; i--, j++) {
 			// keeps counter right for each 10's place
 			int count = (int) ((digits.get((int) i)) * Math.pow(10, j));
@@ -284,7 +282,7 @@ public class BigNumber {
 		}
 		return product;
 	}
-	//
+	
 	/**
 	 * Divides a number by a number given as an argument
 	 * 
@@ -292,17 +290,17 @@ public class BigNumber {
 	 *            the divisor
 	 * @returns the quotient
 	 */
-	// public BigNumber divide(BigNumber x) {
-	// BigNumber quotient = new BigNumber(0);
-	// BigNumber temp = digits;
-	// // TODO make sure compare to works this way
-	// while (temp.compareTo(x) >= 0) {
-	// temp = temp.subtract(x);
-	// quotient = quotient.add(1);
-	// }
-	// // rest is remainder.
-	// return quotient;
-	// }
+	public BigNumber divide(BigNumber x) {
+		BigNumber quotient = new BigNumber(ZERO);
+		BigNumber temp = new BigNumber(this);
+		while (temp.compareTo(x) >= 0) {
+			temp = temp.subtract(x);
+			quotient = quotient.add(ONE);
+		}
+		// rest is remainder.
+		return quotient;
+	}
+	
 	/**
 	 * Mods a number by a number given as an argument
 	 * 
@@ -310,14 +308,14 @@ public class BigNumber {
 	 *            the modulous
 	 * @returns the remainder after division
 	 */
-	// public BigNumber mod(BigNumber x) {
-	// BigNumber temp = digits;
-	// // TODO make sure compare to works this way
-	// while (temp.compareTo(x) >= 0) {
-	// temp = temp.subtract(x);
-	// }
-	// return temp;
-	// }
+	public BigNumber mod(BigNumber x) {
+		BigNumber temp = new BigNumber(this);
+		while (temp.compareTo(x) >= 0) {
+			temp = temp.subtract(x);
+		}
+		return temp;
+	}
+	
 	/**
 	 * Creates a list of the prime factors of the given BigNumber
 	 * 

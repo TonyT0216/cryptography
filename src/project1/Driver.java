@@ -28,10 +28,10 @@ public class Driver
 		System.out.println ("Second - First: " + y.subtract(x));
 		System.out.println ("Product: " + x.multiply(y));
 		System.out.println ("Product: " + y.multiply(x));
-//		System.out.println ("First / Second: " + x.divide(y).getQuotient());
-//		System.out.println ("Second / First: " + y.divide(x).getQuotient());
-//		System.out.println ("First % Second: " + x.divide(y).getMod());
-//		System.out.println ("Second % First: " + y.divide(x).getMod());
+		System.out.println ("First / Second: " + x.divide(y));
+		System.out.println ("Second / First: " + y.divide(x));
+		System.out.println ("First % Second: " + x.mod(y));
+		System.out.println ("Second % First: " + y.mod(x));
 //	   
 //		line = scanner.nextLine();
 	   }
