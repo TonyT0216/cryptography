@@ -18,11 +18,25 @@ public class BigNumber {
 	/**
 	 * Constructor of the BigNumber class
 	 * 
-	 * @param number
+	 * @param number	a String of numbers
 	 */
 	public BigNumber(String number) {
 		digits = new ArrayList<Integer>(number.length());			// Initialize an ArrayList of Integers
 		inspectString(number);										// Check the string for numbers
+	}
+	
+	/**
+	 * 
+	 * @param bn
+	 */
+	public BigNumber(BigNumber bn)
+	{
+		digits = new ArrayList<Integer>(bn.digits.size());
+		for(int i = 0; i < bn.digits.size(); i++)
+		{
+			int num = bn.digits.get(i);
+			digits.add(num);
+		}
 	}
 
 	/**
@@ -60,8 +74,8 @@ public class BigNumber {
 		checkForDigitAmount(this,two);				// Check to see if both BigNumbers being added have a difference in the number of digits
 
 		int carry = 0;
-		BigNumber sum = new BigNumber("");
-		String s = "";
+//		BigNumber sum = new BigNumber("");
+		StringBuilder sb = new StringBuilder();
 		for (int i = digits.size() - 1, j = two.digits.size() - 1; (i >= 0 && j >= 0)
 				|| carry != 0; i--, j--) {
 			int digit1 = i < 0 ? 0 : (digits.get(i));
@@ -74,13 +88,15 @@ public class BigNumber {
 			} else {
 				carry = 0;
 			}
-			s += String.valueOf(digit);
+			sb.append(digit);
 		}
-
-		for (int i = s.length() - 1; i >= 0; i--) {
-			int rightSideUp = Integer.parseInt(Character.toString(s.charAt(i)));
-			sum.digits.add(rightSideUp);
-		}
+		sb.reverse();
+		String s = sb.toString();
+		BigNumber sum = new BigNumber(s);
+//		for (int i = s.length() - 1; i >= 0; i--) {
+//			int rightSideUp = Integer.parseInt(Character.toString(s.charAt(i)));
+//			sum.digits.add(rightSideUp);
+//		}
 
 		return sum;
 	}
@@ -93,8 +109,9 @@ public class BigNumber {
 	 * @return the difference between both BigNumbers
 	 */
 	public BigNumber subtract(BigNumber two) {
-		two.negate();
-		return this.add(two);
+		BigNumber tensC = new BigNumber(two);
+		tensC.negate();
+		return this.add(tensC);
 	}
 
 //	/**
