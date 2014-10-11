@@ -42,7 +42,7 @@ public class BigNumber {
 	}
 
 	/**
-	 * Helper method -- inspects the string for Objects other than letters The
+	 * Helper method -- inspects the string for Objects other than letters. The
 	 * string will be processed, and then inserted into the ArrayList one
 	 * character at a time.
 	 * 
@@ -50,14 +50,15 @@ public class BigNumber {
 	 *            the string that will be inspected
 	 */
 	private void inspectString(String number) {
-		Pattern p = Pattern.compile("\\d+");
+		Pattern p = Pattern.compile("\\d+");				// The regex pattern that identifies numbers
 		Matcher m = p.matcher(number);
 		String s = " ";
 		while (m.find()) {
 			// digits.add(Integer.parseInt(m.group()));
-			s = m.group();
+			s = m.group();									// Will find only numbers in the String and group them together
 		}
-		for (int i = 0; i < s.length(); i++) {
+		
+		for (int i = 0; i < s.length(); i++) {				// Fill the digits of the BigNumber with the numbers
 			char c = s.charAt(i);
 			String str = Character.toString(c);
 			Integer digit = Integer.parseInt(str);
@@ -304,7 +305,7 @@ public class BigNumber {
 	 * Mods a number by a number given as an argument
 	 * 
 	 * @param x
-	 *            the modulous
+	 *            the modulus
 	 * @returns the remainder after division
 	 */
 	public BigNumber mod(BigNumber x) {
