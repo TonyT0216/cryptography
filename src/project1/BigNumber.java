@@ -271,20 +271,19 @@ public class BigNumber {
 	 *            the second number to multiply by
 	 * @returns the product of the two numbers
 	 */
-	// public BigNumber multiply(BigNumber x) {
-	// BigNumber product = new BigNumber(0);
-	// // TODO check this. might/probably is off by 1
-	// // also starts at 1 to ignore sign digit...if we do that
-	// for (int i, j = 1; i < digits.length; i++, j++) {
-	// // keeps counter right for each 10's place
-	// int count = x[i] * Math.pow(10, j);
-	// while (count != 0) {
-	// product = product.add(digits);
-	// count--;
-	// }
-	// }
-	// return product;
-	// }
+	public BigNumber multiply(BigNumber x) {
+		BigNumber product = new BigNumber("00");
+		// TODO check this. might/probably is off by 1
+		for (int i=digits.size()-1, j=0; i>=0; i--, j++) {
+			// keeps counter right for each 10's place
+			int count = (int) ((digits.get((int) i)) * Math.pow(10, j));
+			while (count > 0) {
+				product = product.add(x);
+				count--;
+			}
+		}
+		return product;
+	}
 	//
 	/**
 	 * Divides a number by a number given as an argument
