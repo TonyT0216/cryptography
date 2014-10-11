@@ -95,6 +95,10 @@ public class BigNumber {
 			sb.append(digit);
 		}
 		sb.reverse();
+		if(sb.length() > digits.size() && sb.length() > two.digits.size())
+		{
+			sb.deleteCharAt(0);
+		}
 		String s = sb.toString();
 		BigNumber sum = new BigNumber(s);
 		// for (int i = s.length() - 1; i >= 0; i--) {
@@ -232,10 +236,10 @@ public class BigNumber {
 	 *            A bigNumber of a certain length and value
 	 */
 	private void checkForDigitAmount(BigNumber bigNumber, BigNumber two) {
-//		if (bigNumber.digits.size() == 1 && two.digits.size() == 1) {
-//			padNumbers(bigNumber);
-//			padNumbers(two);
-//		}
+		if (bigNumber.digits.size() == 1 && two.digits.size() == 1) {
+			padNumbers(bigNumber);
+			padNumbers(two);
+		}
 		while (bigNumber.digits.size() < two.digits.size()) {
 			bigNumber.digits.add(0, 0);
 		} // If bigNumber is smaller than two, make bigNumber equal in length to
@@ -361,11 +365,11 @@ public class BigNumber {
 	// }
 	// }
 
-//	private void padNumbers(BigNumber bigNumber) {
-//			bigNumber.digits.add(0,0);
-//			bigNumber.digits.add(0,0);
-//
-//	}
+	private void padNumbers(BigNumber bigNumber) {
+		bigNumber.digits.add(0, 0);
+		bigNumber.digits.add(0, 0);
+
+	}
 
 	/**
 	 * 
