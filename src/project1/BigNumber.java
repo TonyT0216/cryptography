@@ -76,7 +76,7 @@ public class BigNumber {
 		int carry = 0;
 //		BigNumber sum = new BigNumber("");
 		StringBuilder sb = new StringBuilder();
-		for (int i = digits.size() - 1, j = two.digits.size() - 1; ((i >= 0 && j >= 0) || carry != 0); i--, j--) {
+		for (int i = digits.size() - 1, j = two.digits.size() - 1; (i >= 0 && j >= 0) || carry != 0; i--, j--) {
 			int digit1 = i < 0 ? 0 : (digits.get(i));
 			int digit2 = j < 0 ? 0 : (two.digits.get(j));
 			int digit = digit1 + digit2 + carry;
@@ -338,4 +338,19 @@ public class BigNumber {
 //	    return true;
 //	    }
 //	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public int sign()
+	{
+		int highOrderDigit = digits.get(0);
+		if(highOrderDigit > 4)
+			return -1;
+		else if(highOrderDigit < 4 && highOrderDigit >= 1)
+			return 1;
+		else
+			return 0;
+	}
 }
