@@ -1,6 +1,8 @@
 package project1;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 
@@ -10,8 +12,8 @@ import java.util.*;
 public class BigNumber {
 
 	public ArrayList<Integer> digits;
-	private final BigNumber ZERO = new BigNumber("00");
-	private final BigNumber ONE = new BigNumber("01");
+//	private final BigNumber ZERO = new BigNumber("00");
+//	private final BigNumber ONE = new BigNumber("01");
 
 	/**
 	 * Constructor of the BigNumber class
@@ -19,18 +21,31 @@ public class BigNumber {
 	 * @param number
 	 */
 	public BigNumber(String number) {
-		digits = new ArrayList<Integer>(number.length());
-		checkNumber(number);
-		if (number.matches("[0-9]+")) {
-			for (int i = 0; i < number.length(); i++) {
-				char c = number.charAt(i);
-				String s = Character.toString(c);
-				Integer digit = Integer.parseInt(s);
-				digits.add(digit);
-			}
+		digits = new ArrayList<Integer>(number.length());			// Initialize an ArrayList of Integers
+		inspectString(number);										// Check the string for numbers
+	}
 
+	/**
+	 * Helper method -- inspects the string for Objects other than letters
+	 * The string will be processed, and then inserted into the ArrayList 
+	 * one character at a time.
+	 * @param number	the string that will be inspected 
+	 */
+	private void inspectString(String number) {
+		Pattern p = Pattern.compile("\\d+");
+		Matcher m = p.matcher(number);
+		String s = " ";
+		while(m.find()){
+//			digits.add(Integer.parseInt(m.group()));
+			s = m.group();
 		}
-
+		for(int i = 0; i < s.length(); i++)
+		{
+			char c = s.charAt(i);
+			String str = Character.toString(c);
+			Integer digit = Integer.parseInt(str);
+			digits.add(digit);
+		}
 	}
 
 	/**
@@ -42,13 +57,13 @@ public class BigNumber {
 	 */
 	public BigNumber add(BigNumber two) {
 
-		while (this.digits.size() > two.digits.size()) {
-			checkNumber(two);
-		}
-
-		while (this.digits.size() < two.digits.size()) {
-			checkNumber(this);
-		}
+//		while (this.digits.size() > two.digits.size()) {
+//			checkNumber(two);
+//		}
+//
+//		while (this.digits.size() < two.digits.size()) {
+//			checkNumber(this);
+//		}
 
 		int carry = 0;
 		BigNumber sum = new BigNumber("");
@@ -77,22 +92,6 @@ public class BigNumber {
 	}
 
 	/**
-	 * 
-	 * @param bigNumber
-	 */
-	private void checkNumber(BigNumber bigNumber) {
-		int highOrderDigit = bigNumber.digits.get(0);
-		if (highOrderDigit > 4) {
-			bigNumber.digits.add(0, 9);
-		}
-
-		else {
-			bigNumber.digits.add(0, 0);
-		}
-
-	}
-
-	/**
 	 * Subtract both BigNumbers
 	 * 
 	 * @param two
@@ -104,19 +103,19 @@ public class BigNumber {
 		return this.add(two);
 	}
 
-	/**
-	 * Helper method for checking for a negative input
-	 * 
-	 * @param s
-	 */
-	private void checkNumber(String s) {
-		int highOrderDigit;
-		highOrderDigit = Integer.parseInt(Character.toString(s.charAt(0)));
-		if (highOrderDigit > 4 || s.charAt(0) == '-') {
-			// s.negate();
-		}
-
-	}
+//	/**
+//	 * Helper method for checking for a negative input
+//	 * 
+//	 * @param s
+//	 */
+//	private void checkNumber(String s) {
+//		int highOrderDigit;
+//		highOrderDigit = Integer.parseInt(Character.toString(s.charAt(0)));
+//		if (highOrderDigit > 4 || s.charAt(0) == '-') {
+//			// s.negate();
+//		}
+//
+//	}
 
 	/**
 	 * @Override toString method
@@ -244,51 +243,51 @@ public class BigNumber {
 //		return temp;
 //	}
 
-	public ArrayList<BigNumber> factor(BigNumber x) {
-		//return values
-		ArrayList<BigNumber> factors = new ArrayList<BigNumber>();
-		//prime to divide x by
-		BigNumber prime = new BigNumber("02");
-		//number of times x is divided by prime
-		BigNumber counter = new BigNumber("00");
-		//while x is > 1
-		while(x.compareTo(ONE)==1){
-			//while x%prime == 0 (prime divides in evenly)
-			while ((x.mod(prime)).compareTo(ZERO)==0){
-				//divide by the prime, and keep count of number of divisions
-				x=x.divide(prime);
-				counter=counter.add(ONE);
-			}
-			//adds the prime that was just divided by "counter" times to
-			//the list of factors "counter" times.
-			while(counter.compareTo(ZERO)==1){
-				factors.add(prime);
-				counter=counter.subtract(ONE);
-			}
-			//gets next prime after current prime number
-			prime=getNextPrime(prime);
-		}
-		return factors;
-	}
+//	public ArrayList<BigNumber> factor(BigNumber x) {
+//		//return values
+//		ArrayList<BigNumber> factors = new ArrayList<BigNumber>();
+//		//prime to divide x by
+//		BigNumber prime = new BigNumber("02");
+//		//number of times x is divided by prime
+//		BigNumber counter = new BigNumber("00");
+//		//while x is > 1
+//		while(x.compareTo(ONE)==1){
+//			//while x%prime == 0 (prime divides in evenly)
+//			while ((x.mod(prime)).compareTo(ZERO)==0){
+//				//divide by the prime, and keep count of number of divisions
+//				x=x.divide(prime);
+//				counter=counter.add(ONE);
+//			}
+//			//adds the prime that was just divided by "counter" times to
+//			//the list of factors "counter" times.
+//			while(counter.compareTo(ZERO)==1){
+//				factors.add(prime);
+//				counter=counter.subtract(ONE);
+//			}
+//			//gets next prime after current prime number
+//			prime=getNextPrime(prime);
+//		}
+//		return factors;
+//	}
+//	
+//	private BigNumber getNextPrime(BigNumber x){
+//		if(checkPrime(x.add(new BigNumber("01")))==true){
+//			return x;
+//		}
+//		else return getNextPrime(x);
+//	}
 	
-	private BigNumber getNextPrime(BigNumber x){
-		if(checkPrime(x.add(new BigNumber("01")))==true){
-			return x;
-		}
-		else return getNextPrime(x);
-	}
-	
-	private boolean checkPrime(BigNumber x){
-		//limit is a VERY rough estimate of when to stop checking primes (should be sqrt of x)
-	    BigNumber limit = x.divide(new BigNumber("02"));
-	    //start at 2, while i<=limit check it
-	    for (BigNumber i = new BigNumber("02"); i.compareTo(limit)<1; i.add(new BigNumber("1"))) {
-	    	//if it evenly divides by i, i is a factor, so it's not prime
-	       if ((x.mod(i)) == 0){
-	    	   return false;
-	    }
-	       //if it goes through all i's between 2 and limit without being evenly divided, it's prime
-	    return true;
-	    }
-	}
+//	private boolean checkPrime(BigNumber x){
+//		//limit is a VERY rough estimate of when to stop checking primes (should be sqrt of x)
+//	    BigNumber limit = x.divide(new BigNumber("02"));
+//	    //start at 2, while i<=limit check it
+//	    for (BigNumber i = new BigNumber("02"); i.compareTo(limit)<1; i.add(new BigNumber("1"))) {
+//	    	//if it evenly divides by i, i is a factor, so it's not prime
+//	       if ((x.mod(i)) == 0){
+//	    	   return false;
+//	    }
+//	       //if it goes through all i's between 2 and limit without being evenly divided, it's prime
+//	    return true;
+//	    }
+//	}
 }
