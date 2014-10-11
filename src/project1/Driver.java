@@ -32,6 +32,8 @@ public class Driver
 		System.out.println ("Second / First: " + y.divide(x));
 		System.out.println ("First % Second: " + x.mod(y));
 		System.out.println ("Second % First: " + y.mod(x));
+		System.out.println("Factors of first: " + x.factorsAsString(x.factor()));
+		System.out.println("Factors of second: " + y.factorsAsString(y.factor()));
 //	   
 //		line = scanner.nextLine();
 	   }

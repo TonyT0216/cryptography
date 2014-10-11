@@ -126,7 +126,6 @@ public class BigNumber {
 	}
 
 	private void removeHighestOrder() {
-		// TODO Auto-generated method stub
 		digits.remove(0);
 	}
 
@@ -323,56 +322,67 @@ public class BigNumber {
 	 *            given BigNumber
 	 * @returns the list of factors
 	 */
-	// public ArrayList<BigNumber> factor(BigNumber x) {
-	// //return values
-	// ArrayList<BigNumber> factors = new ArrayList<BigNumber>();
-	// //prime to divide x by
-	// BigNumber prime = new BigNumber("02");
-	// //number of times x is divided by prime
-	// BigNumber counter = new BigNumber("00");
-	// //while x is > 1
-	// while(x.compareTo(ONE)==1){
-	// //while x%prime == 0 (prime divides in evenly)
-	// while ((x.mod(prime)).compareTo(ZERO)==0){
-	// //divide by the prime, and keep count of number of divisions
-	// x=x.divide(prime);
-	// counter=counter.add(ONE);
-	// }
-	// //adds the prime that was just divided by "counter" times to
-	// //the list of factors "counter" times.
-	// while(counter.compareTo(ZERO)==1){
-	// factors.add(prime);
-	// counter=counter.subtract(ONE);
-	// }
-	// //gets next prime after current prime number
-	// prime=getNextPrime(prime);
-	// }
-	// return factors;
-	// }
-	//
-	// private BigNumber getNextPrime(BigNumber x){
-	// if(checkPrime(x.add(new BigNumber("01")))==true){
-	// return x;
-	// }
-	// else return getNextPrime(x);
-	// }
+	public ArrayList<BigNumber> factor() {
+		BigNumber x = new BigNumber(this);
+		//return values
+		ArrayList<BigNumber> factors = new ArrayList<BigNumber>();
+		//prime to divide x by
+		BigNumber prime = new BigNumber("02");
+		//number of times x is divided by prime
+		BigNumber counter = new BigNumber("00");
+		//while x is > 1
+		while(x.compareTo(ONE)==1){
+			//while x%prime == 0 (prime divides in evenly)
+			while ((x.mod(prime)).compareTo(ZERO)==0){
+				//divide by the prime, and keep count of number of divisions
+				x=x.divide(prime);
+				counter=counter.add(ONE);
+			}
+			//adds the prime that was just divided by "counter" times to
+			//the list of factors "counter" times.
+			while(counter.compareTo(ZERO)==1){
+				factors.add(prime);
+				counter=counter.subtract(ONE);
+			}
+			//gets next prime after current prime number
+			prime=getNextPrime(prime);
+		}
+		return factors;
+	}
 
-	// private boolean checkPrime(BigNumber x){
-	// //limit is a VERY rough estimate of when to stop checking primes (should
-	// be sqrt of x)
-	// BigNumber limit = x.divide(new BigNumber("02"));
-	// //start at 2, while i<=limit check it
-	// for (BigNumber i = new BigNumber("02"); i.compareTo(limit)<1; i.add(new
-	// BigNumber("1"))) {
-	// //if it evenly divides by i, i is a factor, so it's not prime
-	// if ((x.mod(i)) == 0){
-	// return false;
-	// }
-	// //if it goes through all i's between 2 and limit without being evenly
-	// divided, it's prime
-	// return true;
-	// }
-	// }
+	private BigNumber getNextPrime(BigNumber x){
+		if(checkPrime(x.add(ONE))==true){
+			return x;
+		}
+		else return getNextPrime(x);
+	}
+
+	private boolean checkPrime(BigNumber x){
+		//limit is a VERY rough estimate of when to stop checking primes (should
+		//be sqrt of x)
+		BigNumber limit = x.divide(new BigNumber("02"));
+		//start at 2, while i<=limit check it
+		BigNumber counter = new BigNumber("02");
+		while(counter.compareTo(limit)<1){
+			//if it evenly divides by i, i is a factor, so it's not prime
+			if ((x.mod(counter)).equals(ZERO)){
+				return false;
+			}
+			counter = counter.add(ONE);
+			//if it goes through all i's between 2 and limit without being evenly
+			//divided, it's prime
+		}
+		return true;
+	}
+	
+	public String factorsAsString(ArrayList<BigNumber> x){
+		String s="";
+		for(BigNumber e:x){
+			s=s+e+" ";
+		}
+		s.trim();
+		return s;
+	}
 
 	private void padNumbers(BigNumber bigNumber) {
 		bigNumber.digits.add(0, 0);
