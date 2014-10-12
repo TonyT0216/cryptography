@@ -279,12 +279,15 @@ public class BigNumber {
 	 * @returns the product of the two numbers
 	 */
 	public BigNumber multiply(BigNumber x) {
+		//product is 0 by default
 		BigNumber product = new BigNumber(ZERO);
 		for (int i=digits.size()-1, j=0; i>=0; i--, j++) {
 			// keeps counter right for each 10's place
 			int count = (int) ((digits.get((int) i)) * Math.pow(10, j));
 			while (count > 0) {
+				//add x to itself over and over
 				product = product.add(x);
+				//update count
 				count--;
 			}
 		}
@@ -299,10 +302,15 @@ public class BigNumber {
 	 * @returns the quotient
 	 */
 	public BigNumber divide(BigNumber x) {
+		//quotient is 0 by default
 		BigNumber quotient = new BigNumber(ZERO);
+		//work with a copy so it doesn't change value of 'this'
 		BigNumber temp = new BigNumber(this);
+		//while temp is >= the divisor
 		while (temp.compareTo(x) >= 0) {
+			//subtract the divisor
 			temp = temp.subtract(x);
+			//keep track of number of subtractions
 			quotient = quotient.add(ONE);
 		}
 		// rest is remainder.
@@ -317,10 +325,12 @@ public class BigNumber {
 	 * @returns the remainder after division
 	 */
 	public BigNumber mod(BigNumber x) {
+		//same as division except don't keep track of number of subtractions
 		BigNumber temp = new BigNumber(this);
 		while (temp.compareTo(x) >= 0) {
 			temp = temp.subtract(x);
 		}
+		//return the remainder
 		return temp;
 	}
 	
@@ -332,14 +342,15 @@ public class BigNumber {
 	 * @returns the list of factors
 	 */
 	public ArrayList<BigNumber> factor() {
+		//work with copy
 		BigNumber x = new BigNumber(this);
 		//return values
 		ArrayList<BigNumber> factors = new ArrayList<BigNumber>();
-		//prime to divide x by
-		BigNumber prime = new BigNumber("02");
-		//number of times x is divided by prime
-		BigNumber counter = new BigNumber("00");
-		//while x is > 1
+		//prime to divide x by, first prime is 2
+		BigNumber prime = new BigNumber("2");
+		//number of times x is divided by prime, initially 0
+		BigNumber counter = new BigNumber(ZERO);
+		//while x is > 1 since 1 is implied to be a factor of x
 		while(x.compareTo(ONE)==1){
 			//while x%prime == 0 (prime divides in evenly)
 			while ((x.mod(prime)).compareTo(ZERO)==0){
@@ -347,7 +358,7 @@ public class BigNumber {
 				x=x.divide(prime);
 				counter=counter.add(ONE);
 			}
-			//adds the prime that was just divided by "counter" times to
+			//adds the prime that x was just divided by "counter" times to
 			//the list of factors "counter" times.
 			while(counter.compareTo(ZERO)==1){
 				factors.add(prime);
@@ -356,35 +367,45 @@ public class BigNumber {
 			//gets next prime after current prime number
 			prime=getNextPrime(prime);
 		}
+		//return the list of factors
 		return factors;
 	}
 
 	private BigNumber getNextPrime(BigNumber x){
-		if(checkPrime(x.add(ONE))==true){
+		//if the previous number+1 is prime, return it
+		x=x.add(ONE);
+		if(checkPrime(x)==true){
 			return x;
 		}
+		//else send x to getNextPrime so it will get incremented again
 		else return getNextPrime(x);
 	}
 
 	private boolean checkPrime(BigNumber x){
-		//limit is a VERY rough estimate of when to stop checking primes (should
-		//be sqrt of x)
-		BigNumber limit = x.divide(new BigNumber("02"));
-		//start at 2, while i<=limit check it
-		BigNumber counter = new BigNumber("02");
+		//limit is a VERY rough estimate of when to stop checking primes 
+		//should be sqrt of x, not just x/2
+		BigNumber limit = x.divide(new BigNumber("2"));
+		//start at 2, since 1 is allowed
+		BigNumber counter = new BigNumber("2");
+		//while counter<=limit check it
 		while(counter.compareTo(limit)<1){
 			//if it evenly divides by i, i is a factor, so it's not prime
 			if ((x.mod(counter)).equals(ZERO)){
 				return false;
 			}
 			counter = counter.add(ONE);
-			//if it goes through all i's between 2 and limit without being evenly
-			//divided, it's prime
+			//if it goes through all numbers between 2 and limit without being evenly
+			//divided by any, it's prime
 		}
 		return true;
 	}
 	
-
+	/**
+	 * Gives a String representation of a list of factors for printing
+	 * 
+	 * @param x List of factors of a BigNumber
+	 * @return String of factors separated by a space 
+	 */
 	public String factorsAsString(ArrayList<BigNumber> x){
 		String s="";
 		for(BigNumber e:x){
