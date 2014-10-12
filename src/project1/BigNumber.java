@@ -114,18 +114,21 @@ public class BigNumber {
 	 * @return the difference between both BigNumbers
 	 */
 	public BigNumber subtract(BigNumber two) {
-		BigNumber tensC = new BigNumber(two);
-		tensC.negate();
-		tensC = this.add(tensC);
+		BigNumber tensC = new BigNumber(two);							// Create a new BigNumber for then ten's Complement
+		tensC.negate();													// Negate the BigNumber
+		tensC = this.add(tensC);										// Add the negated BigNumber to the BigNumber calling the method
 //		return this.add(tensC);
 		
-		for(int i = tensC.size(); tensC.size() > digits.size(); i--)
+		for(int i = tensC.size(); tensC.size() > digits.size(); i--)    
 		{
 			tensC.removeHighestOrder();
 		}
 		return tensC;
 	}
 
+	/**
+	 * Helper method -- remove the highest order digit from the BigNumber
+	 */
 	private void removeHighestOrder() {
 		digits.remove(0);
 	}
