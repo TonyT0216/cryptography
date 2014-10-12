@@ -147,10 +147,15 @@ public class BigNumber {
 	//
 	// }
 
+	/**
+	 * Helper method -- retrieve the amount of digits in a BigNumber 
+	 * @return	the number of digits in a BigNumber
+	 */
 	private int size()
 	{
 		return digits.size();
 	}
+	
 	/**
 	 * @Override toString method
 	 */
@@ -379,6 +384,7 @@ public class BigNumber {
 		return true;
 	}
 	
+
 	public String factorsAsString(ArrayList<BigNumber> x){
 		String s="";
 		for(BigNumber e:x){
@@ -387,7 +393,11 @@ public class BigNumber {
 		s.trim();
 		return s;
 	}
-
+	
+	/**
+	 * Helper method -- meant to pad one digit numbers with additional zeroes
+	 * @param bigNumber	the BigNumber to be padded
+	 */
 	private void padNumbers(BigNumber bigNumber) {
 		bigNumber.digits.add(0, 0);
 		bigNumber.digits.add(0, 0);
@@ -395,8 +405,10 @@ public class BigNumber {
 	}
 
 	/**
-	 * 
-	 * @return
+	 * Indicates the sign of the BigNumber
+	 * @return	-1 if bigNumber is a negative number
+	 * 			else if returns 1 is bigNumber is a positive number
+	 * 			else returns 0
 	 */
 	public int sign() {
 		int highOrderDigit = digits.get(0);
