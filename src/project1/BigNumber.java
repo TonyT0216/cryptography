@@ -30,8 +30,8 @@ public class BigNumber {
 	}
 
 	/**
-	 * 
-	 * @param bn
+	 * Constructor of the BigNumber class 
+	 * @param bn	a BigNumber that will be duplicated
 	 */
 	public BigNumber(BigNumber bn) {
 		digits = new ArrayList<Integer>(bn.digits.size());
@@ -81,22 +81,22 @@ public class BigNumber {
 		int carry = 0;
 		// BigNumber sum = new BigNumber("");
 		StringBuilder sb = new StringBuilder();
-		for (int i = digits.size() - 1, j = two.digits.size() - 1; (i >= 0 && j >= 0)
-				|| carry != 0; i--, j--) {
-			int digit1 = i < 0 ? 0 : (digits.get(i));
-			int digit2 = j < 0 ? 0 : (two.digits.get(j));
+		for (int i = digits.size() - 1, j = two.digits.size() - 1; (i >= 0 && j >= 0)	// for each digit in both BigNumbers
+				|| carry != 0; i--, j--) {												// NOTE: the loop does go past -1 because of the 
+			int digit1 = i < 0 ? 0 : (digits.get(i));									// carry != 0 condition
+			int digit2 = j < 0 ? 0 : (two.digits.get(j));								// Retrieve the digits if they are greater than 0
 			int digit = digit1 + digit2 + carry;
 
-			if (digit > 9) {
-				carry = 1;
-				digit -= 10;
+			if (digit > 9) {															// If the digit total is greater than 9
+				carry = 1;																// Assign the overflow to the carry
+				digit -= 10;															// Take ten away from the digit
 			} else {
 				carry = 0;
 			}
-			sb.append(digit);
-		}
-		sb.reverse();
-		String s = sb.toString();
+			sb.append(digit);															// Append the digit to the StringBuilder
+		}																				// When the loop is finished
+		sb.reverse();																	// reverse the StringBuilder, create a string that holds
+		String s = sb.toString();														// all values, and create a BugNumber sum with the answer
 		BigNumber sum = new BigNumber(s);
 		// for (int i = s.length() - 1; i >= 0; i--) {
 		// int rightSideUp = Integer.parseInt(Character.toString(s.charAt(i)));
