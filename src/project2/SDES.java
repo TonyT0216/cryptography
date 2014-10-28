@@ -18,49 +18,89 @@ public class SDES {
 	
 
 	/**
-	 * 
-	 * @param inp
-	 * @param epv
-	 * @return
+	 * Expand and/or permute and/or select from the bit array, inp,
+	 * producing an expanded/permuted/selected bit array.
+	 * @param inp	A bit array represented as booleans, true=1, false=0
+	 * @param epv	an expansion and/or permutation and/or selection vector;
+	 * all numbers must be in the range 0..inp.length, i.e.
+	 * they must be valid subscripts for inp.
+	 * @return the permuted/expanded/selected bit array
+	 * @throws IndexOutOfBoundsException if an element in epv is less than 0 or
+	 * greater than inp.length
 	 */
-	public boolean[] expPerm(boolean[] inp, int[] epv) {
-		ArrayList<Boolean> ep = new ArrayList<Boolean>();
-		for (int i = 0; i < epv.length; i++) {
-			int verify = epv[i];
-			int inputLength = inp.length;
-			boolean withinTheRange = checkIntForRange(verify, inputLength);
-			if (withinTheRange) {
-				int bitPosition = verify;
+	public boolean[] expPerm(boolean[] inp, int[] epv)
+	{
+		// Key assumption inp[] will always have a length of 4
+		// 1. Create a new array with 8 containers for booleans
+		boolean[] expPerm = new boolean[7];
+		// 2. Loop through the epv array, and retrieve the ith element
+		for(int i = 0; i < epv.length; i++){
+			int digitNum = epv[i];
+			// a. Inspect ith element for a valid subscript 
+			boolean withinTheRange = checkIntForRange(digitNum,inp.length);
+			// b. If true, process the digitNum, retrieve the boolean value at inp[bitPosition]
+			// and add it to the expPerm array
+			if(withinTheRange){
+				int bitPosition = digitNum;
 				boolean boolValue = inp[bitPosition];
-				ep.add(boolValue);
+				expPerm[i] = boolValue;
+			}
+			// c. Else False, it's not a valid subscript
+			else {
+				throw new IndexOutOfBoundsException();
 			}
 		}
-		boolean[] outputArray = toPrimitiveArray(ep);
-		return outputArray;
+		// 3. Return expPerm which will contain inp's inputs in the positions that epv gave.
+		return expPerm;
 	}
-
+	
 	/**
-	 * 
-	 * @param scanner
+	 * Get a ten bit key from the keyboard.  Store it as an array of booleans in a field.
+	 * @param scanner	The Scanner from which the input will be processed.
 	 */
-	public void getKey10(Scanner scanner) {
-		ArrayList <Boolean> key = new ArrayList<Boolean>();
-		Pattern p = Pattern.compile("/^[01]?$");
-		scanner.findInLine(p);
-		MatchResult result = scanner.match();
-		for (int i = 0; i < result.groupCount(); i++){
-			String s = result.group(i);
-			int digit = Integer.parseInt(s);
-			if(digit == 0)
-			{
-				key.add(false);
-			} else {
-				key.add(true);
-			}
-			
-			tenKeys = toPrimitiveArray(key);
+	public void getKey10(java.util.Scanner scanner) {
+		// Key assumption, the key will always be 10 digits long
+		// 1. Initialize an array that will hold the 10-bit key
+		boolean[] key = new boolean[10];
+//		Pattern p = Pattern.compile("/^[01]?$");
+//		scanner.findInLine(p);
+//		MatchResult result = scanner.match();
+//		for (int i = 0; i < result.groupCount(); i++){
+//			String s = result.group(i);
+//			int digit = Integer.parseInt(s);
+//			if(digit == 0)
+//			{
+//				key.add(false);
+//			} else {
+//				key.add(true);
+//			}
+//			
+//			tenKeys = toPrimitiveArray(key);
 		
 	}
+//	/**
+//	 * 
+//	 * @param inp
+//	 * @param epv
+//	 * @return
+//	 */
+//	public boolean[] expPerm(boolean[] inp, int[] epv) {
+//		ArrayList<Boolean> ep = new ArrayList<Boolean>();
+//		for (int i = 0; i < epv.length; i++) {
+//			int verify = epv[i];
+//			int inputLength = inp.length;
+//			boolean withinTheRange = checkIntForRange(verify, inputLength);
+//			if (withinTheRange) {
+//				int bitPosition = verify;
+//				boolean boolValue = inp[bitPosition];
+//				ep.add(boolValue);
+//			}
+//		}
+//		boolean[] outputArray = toPrimitiveArray(ep);
+//		return outputArray;
+//	}
+
+
 //		Matcher m = p.matcher(scanner.)
 //		String s = scanner.findInLine(p);
 //		while (m.find()) {
@@ -72,7 +112,6 @@ public class SDES {
 //			System.out.println(result.group(i));
 			
 
-	}
 
 	public java.lang.String byteArrayToString(byte[] inp) {
 		String decodeUTF8 = null;
@@ -152,8 +191,8 @@ public class SDES {
 	 */
 //	public boolean[] byteToBitArray(byte b, int size)
 //	{
-//		boolean[] 
-//		
+//		ArrayList <Boolean> bits = new ArrayList<Boolean>();
+//		while(b >= 0){
 //	}
 //
 	/**
