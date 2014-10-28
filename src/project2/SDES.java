@@ -13,6 +13,9 @@ import java.util.regex.Pattern;
  *
  */
 public class SDES {
+	private boolean[] tenKeys;
+	
+	
 
 	/**
 	 * 
@@ -41,11 +44,33 @@ public class SDES {
 	 * @param scanner
 	 */
 	public void getKey10(Scanner scanner) {
+		ArrayList <Boolean> key = new ArrayList<Boolean>();
 		Pattern p = Pattern.compile("/^[01]?$");
-		String s = scanner.findInLine(p);
+		scanner.findInLine(p);
 		MatchResult result = scanner.match();
-		for (int i = 0; i < result.groupCount(); i++)
-			System.out.println(result.group(i));
+		for (int i = 0; i < result.groupCount(); i++){
+			String s = result.group(i);
+			int digit = Integer.parseInt(s);
+			if(digit == 0)
+			{
+				key.add(false);
+			} else {
+				key.add(true);
+			}
+			
+			tenKeys = toPrimitiveArray(key);
+		
+	}
+//		Matcher m = p.matcher(scanner.)
+//		String s = scanner.findInLine(p);
+//		while (m.find()) {
+//		// digits.add(Integer.parseInt(m.group()));
+//		s = m.group();	// Will find only numbers in the String and group them together
+//		}
+
+
+//			System.out.println(result.group(i));
+			
 
 	}
 
@@ -72,11 +97,12 @@ public class SDES {
 	public boolean[] xor(boolean[] x, boolean[] y) {
 		ArrayList<Boolean> xor = new ArrayList<Boolean>();
 		for (int i = 0; i < x.length && i < y.length; i++) {
-			if (x[i] == y[i]) {
-				xor.add(false);
-			} else {
-				xor.add(true);
-			}
+//			if (x[i] == y[i]) {
+//				xor.add(false);
+//			} else {
+//				xor.add(true);
+//			}
+			xor.add(x[i] ^ y[i]);
 		}
 		boolean[] outputArray = toPrimitiveArray(xor);
 		return outputArray;
@@ -102,18 +128,34 @@ public class SDES {
 
 	}
 
-//	public byte bitArrayToByte(boolean[] inp) {
-//		byte b = Byte.parse
-		//		byte result = 0;
-//		for(int i = 0; i < inp.length; i++){
-//			byte temp = 0;
-//			if(inp[i] == true){
-//				temp = 
-//			}
-//		}
+	public byte bitArrayToByte(boolean[] inp) {
+		byte b = 0;
+		for (int i = 0; i < inp.length; i++) {
+			{
+				boolean value = inp[i];
+				b <<= 1;
+				if (value == true) {
+					b |= 1;
+				}
 
+			}
+
+		}
+		return b;
+	}
+	
+	/**
+	 * 
+	 * @param b
+	 * @param size
+	 * @return
+	 */
+//	public boolean[] byteToBitArray(byte b, int size)
+//	{
+//		boolean[] 
+//		
 //	}
-
+//
 	/**
 	 * 
 	 * @param booleanList
@@ -125,7 +167,7 @@ public class SDES {
 		for (Boolean object : booleanList) {
 			primitives[index++] = object;
 		}
-		return null;
+		return primitives;
 	}
 
 	/**
