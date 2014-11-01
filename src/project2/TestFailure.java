@@ -75,4 +75,12 @@ public class TestFailure {
 		boolean[] y = new boolean[] {true,false,false,true,true,true,false};
 		s.concat(x, y);
 	}
+
+	@Test
+	public void testByteToBitArray()
+	{
+		SDES s = new SDES();
+		byte b = 2;
+		s.byteToBitArray(b, 3);
+	}
 }

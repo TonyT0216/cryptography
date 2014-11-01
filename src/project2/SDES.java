@@ -1,6 +1,6 @@
 package project2;
 
-import java.io.UnsupportedEncodingException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.MatchResult;
@@ -15,6 +15,31 @@ import java.util.regex.Pattern;
 public class SDES {
 	private boolean[] tenKeys;
 
+	/**
+	 * Convert the given byte to a bit array
+	 * @param b	the number to convert to a bit array
+	 * @param size the size of the resulting bit array
+	 * @return the bit array of the given byte
+	 */
+	public boolean[] byteToBitArray(byte b, int size)
+	{
+		// 1. Initialize a boolean array, result, which will hold the 
+		// bit array of the byte
+		boolean[] result = new boolean[size];
+		
+		// 2. Calculate b mod 2 and b / 2, as long as i is less than size
+		for(int i = 0; i < size; i++)
+		{
+			// a. If b % 2 == 1 is true, insert true into result.  Otherwise insert false 
+			// into result
+			result[i] = b % 2 == 1;
+			// b. Divide b by 2
+			b = (byte) (b / 2);
+		}
+		
+		// 3. Return the result 
+		return result;
+	}
 	public byte bitArrayToByte(boolean[] inp) {
 		byte b = 0;
 		for (int i = 0; i < inp.length; i++) {
@@ -47,15 +72,6 @@ public class SDES {
 		return s;
 	}
 
-	// Matcher m = p.matcher(scanner.)
-	// String s = scanner.findInLine(p);
-	// while (m.find()) {
-	// // digits.add(Integer.parseInt(m.group()));
-	// s = m.group(); // Will find only numbers in the String and group them
-	// together
-	// }
-
-	// System.out.println(result.group(i));
 
 	/**
 	 * A helper method that will verify that the number extracted from the []
