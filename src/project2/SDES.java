@@ -188,6 +188,7 @@ public class SDES {
 			key[i] = true;
 	}
 
+	// Ignore, this is a dynamic implementation of expPerm
 	// /**
 	// *
 	// * @param inp
@@ -210,23 +211,48 @@ public class SDES {
 	// return outputArray;
 	// }
 
+	/**
+	 * Left half of x, L(x)
+	 * @param inp	an array of booleans that will be divided
+	 * @return the left half of x
+	 */
 	public boolean[] lh(boolean[] inp) {
+		// 1. Initialize a new array of booleans, lh, at half the length of inp
 		boolean[] lh = new boolean[inp.length / 2];
+		// 2. Iterate through the first half of the array, and copy inp's output
+		// over to lh
 		for (int i = 0; i < inp.length / 2; i++) {
 			boolean donor = inp[i];
 			lh[i] = donor;
 		}
+		// 3. Return the left half of inp
+		// TODO Seems too hard coded, might be changed to be more dynamic
 		return lh;
 	}
 
+	/**
+	 * Right half of x, R(x)
+	 * @param inp	an array of booleans that will be divided
+	 * @return	the right half of x
+	 */
 	public boolean[] rh(boolean[] inp) {
+		// 1. Initialize an ArrayList, rh, as an ArrayList of Booleans
 		ArrayList<Boolean> rh = new ArrayList<Boolean>();
-		for (int i = inp.length / 2; i < inp.length / 2; i++) {
+		// 2. Iterate through the second half of the array, and copy inp's output
+		// over to rh
+		for (int i = inp.length / 2; i < inp.length; i++) {
 			boolean donor = inp[i];
 			rh.add(donor);
 		}
+		// 3. Initialize an array of booleans, outputArray, and convert the ArrayList to 
+		// an array.
 		boolean[] outputArray = toPrimitiveArray(rh);
+		//4. Return the right half of x
 		return outputArray;
+		
+		//TODO Don't mind this too much, this was done to avoid code duplication,
+		// as well as a preference for ArrayList usage.  This can be changed rather easily
+		// if needed.
 	}
 
 	/**
@@ -241,6 +267,7 @@ public class SDES {
 	// while(b >= 0){
 	// }
 	//
+	
 	/**
 	 * 
 	 * @param booleanList
@@ -255,8 +282,22 @@ public class SDES {
 		return primitives;
 	}
 
+	/**
+	 * Exclusive OR. x and y must have the same length.
+	 * x xor y is the same as x != y
+	 * @param x	the first array of booleans
+	 * @param y the second array of booleans
+	 * @return	the exclusive or of both arrays
+	 */
 	public boolean[] xor(boolean[] x, boolean[] y) {
+		// 1. Check to if both boolean arrays have the same length.
+		// If they don't, return null
+		if(x.length != y.length)
+			return null;
+		// 2. Initialize an ArrayList, xor, of Booleans
 		ArrayList<Boolean> xor = new ArrayList<Boolean>();
+		// 3. Iterate through all elements in both arrays, and 
+		// get the xor's of each digit
 		for (int i = 0; i < x.length && i < y.length; i++) {
 			// if (x[i] == y[i]) {
 			// xor.add(false);
@@ -265,7 +306,11 @@ public class SDES {
 			// }
 			xor.add(x[i] ^ y[i]);
 		}
+		
+		// 4. Initialzie an array, outputArray, that will hold the result of converting
+		// a Boolean ArrayList to a boolean array
 		boolean[] outputArray = toPrimitiveArray(xor);
+		// 5. Return the xor of both arrays
 		return outputArray;
 	}
 

@@ -48,4 +48,22 @@ public class TestFailure {
 		byte[] b = new byte[] {1,1,0,0,0,1,0,1,0,1};
 		s.byteArrayToString(b);
 	}
+	
+	@Test
+	public void testDivideArray()
+	{
+		SDES s = new SDES();
+		boolean[] result = new boolean[] {true,false,false,true,true,true,false};
+		s.lh(result);
+		s.rh(result);
+	}
+	
+	@Test
+	public void testXor()
+	{
+		SDES s = new SDES();
+		boolean[] x = new boolean[] {true,false,false,true,true,true,false};
+		boolean[] y = new boolean[] {true,false,false,true,true,true,false};
+		s.xor(x, y);
+	}
 }
