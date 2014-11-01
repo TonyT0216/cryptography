@@ -48,14 +48,23 @@ public class SDES {
 	 */
 	public byte bitArrayToByte(boolean[] inp) {
 		// 1. Initialize a byte, b, which will hold the result of the conversion
-		byte b = 0;
+		byte number = 0;
 		// 2. Determine if the input's length is greater than 8
 		if(inp.length > 8)
 		{
-			return null;
+			return 0;
 		}
 		// 3. Convert the bit array to a byte
-		for(int i = inp.length; i >= 0; i--){
+		for(int i = inp.length - 1; i >= 0; i--){
+			boolean bool = inp[i];
+			if(bool)
+			{
+				number += Math.pow(2,i);
+			}
+		}
+		// TODO in the worst case scenario, with the limit of 8 bits, the highest possible
+		// number is 255 (which is obviously higher than the byte value can hold)
+		return number;
 	}
 	
 	/**

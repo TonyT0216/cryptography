@@ -83,4 +83,13 @@ public class TestFailure {
 		byte b = 2;
 		s.byteToBitArray(b, 3);
 	}
+	
+	@Test
+	public void testBitArrayToByte()
+	{
+		SDES s = new SDES();
+		boolean[] y = new boolean[] {true,false,false,true,true,true,false,true};
+		s.bitArrayToByte(y);
+		
+	}
 }
