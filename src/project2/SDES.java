@@ -76,13 +76,24 @@ public class SDES {
 			return false;
 	}
 
+	/**
+	 * Concatenate the two bit arrays, x || y
+	 * @param x	boolean array x
+	 * @param y boolean array y
+	 * @return the concatenation of x and y
+	 */
 	public boolean[] concat(boolean[] x, boolean[] y) {
+		// 1. Get the lengths of both x and y
 		int xLen = x.length;
 		int yLen = y.length;
+		// 2. Initialize an array, c, that has the sum of the lengths of x and y
 		boolean[] c = new boolean[xLen + yLen];
+		// 3. Duplicate the arrays and its contents over to c
 		System.arraycopy(x, 0, c, 0, xLen);
 		System.arraycopy(y, 0, c, xLen, yLen);
+		// 4. Return the concatenated boolean array c
 		return c;
+		// TODO If needed, I can change this to actual String concatenation
 
 	}
 
