@@ -33,12 +33,19 @@ public class TestFailure {
 		assertEquals(result, s.expPerm(array, prop));
 	}
 	
+//	@Test
+//	public void testGetKey10()
+//	{
+//		Scanner scan = new Scanner(System.in);
+//		SDES s = new SDES();
+//		s.getKey10(scan);
+//	}
+	
 	@Test
-	public void testGetKey10()
+	public void testByteArrayToString()
 	{
-		Scanner scan = new Scanner(System.in);
 		SDES s = new SDES();
-		s.getKey10(scan);
+		byte[] b = new byte[] {1,1,0,0,0,1,0,1,0,1};
+		s.byteArrayToString(b);
 	}
-
 }

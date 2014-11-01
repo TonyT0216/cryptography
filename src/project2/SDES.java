@@ -30,16 +30,21 @@ public class SDES {
 		}
 		return b;
 	}
-
+	
+	/**
+	 * Convert the given byte array to a String
+	 * @param inp	the byte array to be converted
+	 * @return the String representation of the byte array
+	 */
 	public java.lang.String byteArrayToString(byte[] inp) {
-		String decodeUTF8 = null;
-		try {
-			decodeUTF8 = new String(inp, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
+		// 1. Initialize a String with zero length
+		String s = "";
+		// 2. Iterate through the byte array, and concatenate the bytes into the String
+		for (int i = 0; i < inp.length; i++) {				
+			s += inp[i];
 		}
-
-		return decodeUTF8;
+		// 3. Return the concatenated byte array as a String
+		return s;
 	}
 
 	// Matcher m = p.matcher(scanner.)
