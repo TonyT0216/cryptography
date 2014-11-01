@@ -40,20 +40,22 @@ public class SDES {
 		// 3. Return the result 
 		return result;
 	}
+	
+	/**
+	 * Convert the given bit array to a single byte 
+	 * @param inp	the boolean array to convert to a byte
+	 * @return	the byte of the given bit array
+	 */
 	public byte bitArrayToByte(boolean[] inp) {
+		// 1. Initialize a byte, b, which will hold the result of the conversion
 		byte b = 0;
-		for (int i = 0; i < inp.length; i++) {
-			{
-				boolean value = inp[i];
-				b <<= 1;
-				if (value == true) {
-					b |= 1;
-				}
-
-			}
-
+		// 2. Determine if the input's length is greater than 8
+		if(inp.length > 8)
+		{
+			return null;
 		}
-		return b;
+		// 3. Convert the bit array to a byte
+		for(int i = inp.length; i >= 0; i--){
 	}
 	
 	/**
